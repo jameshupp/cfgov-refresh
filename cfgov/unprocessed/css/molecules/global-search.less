@@ -1,0 +1,323 @@
+
+// TODO: Move the theme variables to /enhancements/ for CF.
+/* topdoc
+  name: Theme variables
+  family: cf-core
+  notes:
+    - "The following color and sizing variables are exposed, allowing you to
+       easily override them before compiling."
+  patterns:
+    - name: Sizing
+      codenotes:
+        - |
+          @margin__em
+          @margin_half__em
+          @mobile_trigger_ht__px
+  tags:
+    - cf-core
+*/
+
+@margin__em: unit( @grid_gutter-width / @base-font-size-px, em );
+@margin_half__em: unit( @grid_gutter-width / 2 / @base-font-size-px, em );
+@mobile_trigger_ht__px: 54px;
+
+/* topdoc
+  name: Global Search molecule
+  family: cfgov-molecules
+  patterns:
+    - name: Default example
+      markup: |
+          <div class="m-global-search">
+              <button class="m-global-search_trigger">
+                  <span class="m-global-search_trigger-label">
+                      {{ svg_icon('search') }}
+                      <span class="u-hide-on-mobile">Search</span>
+                  </span>
+              </button>
+              <div class="m-global-search_content"
+                   aria-expanded="false"
+                   role="search">
+                  <form class="m-global-search_content-form">
+                      <div class="input-with-btn">
+                          <div class="input-with-btn_input
+                                      input-contains-label">
+                              <label for="search-input"
+                                     class="input-contains-label_before
+                                            input-contains-label_before__search">
+                                  {{ svg_icon('search') }}
+                                  <span class="u-visually-hidden">Search</span>
+                              </label>
+                              <label for="search-input"
+                                     class="input-contains-label_after
+                                            input-contains-label_after__clear
+                                            u-hidden">
+                                  {{ svg_icon('delete') }}
+                                  <span class="u-visually-hidden">Close</span>
+                              </label>
+                              <input type="text"
+                                     class="a-text-input"
+                                     id="search-input"
+                                     value=""
+                                     placeholder="Search the CFPB">
+                          </div>
+                          <div class="input-with-btn_btn">
+                              <button class="btn">Search</button>
+                          </div>
+                      </div>
+
+                      <div class="m-global-search_content-suggestions">
+                          <p class="h5">Suggested search terms:</p>
+                          <ul class="m-list m-list__horizontal">
+                              <li class="m-list_item"><a class="m-list_link" href="#">Regulations</a></li>
+                              <li class="m-list_item"><a class="m-list_link" href="#">Compliance guides</a></li>
+                              <li class="m-list_item"><a class="m-list_link" href="#">Mortgage</a></li>
+                              <li class="m-list_item"><a class="m-list_link" href="#">College loans</a></li>
+                          </ul>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      codenotes:
+        - |
+          Structural cheat sheet:
+          -----------------------
+          .m-global-search
+            button.m-global-search_trigger
+              span.m-global-search_trigger-label
+                span.u-visually-hidden
+            .m-global-search_content
+              form.m-global-search_content-form
+                […
+                .input-with-btn
+                .input-contains-label
+                from cf-forms
+                …]
+                .m-global-search_content-suggestions
+                  .h5
+                  […
+                  .list.list__horizontal
+                  from cf-typography
+                  …]
+  tags:
+    - cfgov-molecules
+*/
+
+.m-global-search {
+    // Hide search unless we have JS or it's a desktop-ish size.
+    display: none;
+
+    .js & {
+        display: block;
+    }
+
+    &_trigger {
+        .u-webfont-medium();
+
+        // Resets for default button styles.
+        background-color: transparent;
+        border: none;
+        display: none;
+
+        box-sizing: border-box;
+        border-left: 1px solid transparent;
+
+        .respond-to-max( @bp-xs-max, {
+            font-size: unit( @size-iv / @base-font-size-px, em );
+        } );
+
+        &:focus {
+            outline: 1px dotted @black;
+        }
+
+        &-open-label {
+            vertical-align: text-top;
+        }
+
+        &-close-label {
+            display: none;
+        }
+
+        // Only show trigger if we have JS.
+        .js & {
+            display: block;
+        }
+    }
+
+    &_content {
+        position: absolute;
+        left: 0;
+
+        &-form {
+            width: 100%;
+        }
+
+        // Only add transforms if we have JS.
+        .js & {
+            &.u-invisible {
+                overflow-x: hidden;
+            }
+
+            &-form {
+                position: absolute;
+            }
+        }
+
+        .js &[aria-expanded="true"] &-form {
+            display: block;
+        }
+
+        // Hide suggestions outside of tablet sizes.
+        &-suggestions {
+            display: none;
+
+            .h5,
+            .list {
+                display: inline-block;
+            }
+        }
+    }
+
+    // Up to desktops.
+    .respond-to-max( @bp-sm-max, {
+        &_trigger{
+            padding-top: unit( @grid_gutter-width / 2 / @size-iv, em );
+            padding-bottom: unit( @grid_gutter-width / 2 / @size-iv, em );
+            height: unit( @mobile_trigger_ht__px / @size-iv, em );
+            min-width: unit( @mobile_trigger_ht__px / @size-iv, em );
+
+            &[aria-expanded="true"] {
+                background: @gray-10;
+                border-left: 1px solid @gray-40;
+
+                .m-global-search_trigger-open-label {
+                    display: none;
+                }
+
+                .m-global-search_trigger-close-label {
+                    display: block;
+                }
+            }
+        }
+
+         &_content {
+            width: 100%;
+
+            &-form {
+                .u-drop-shadow-after();
+
+                box-sizing: border-box;
+                width: 100%;
+                padding: @margin__em
+                         @margin_half__em
+                         @margin_half__em;
+
+                left: 0;
+                z-index: 10;
+
+                background-color: @gray-5;
+                border-top: 1px solid @gray-40;
+                border-bottom: 1px solid @gray-40;
+            }
+        }
+    } );
+
+    // Tablet size only.
+    .respond-to-range( @bp-sm-min, @bp-sm-max, {
+        &_trigger {
+            // Min-width sets open/close states to same size.
+            min-width: 110px;
+
+            padding-left: unit( @grid_gutter-width / 2 / 18px, em );
+            padding-right: unit( @grid_gutter-width / 2 / 18px, em );
+
+            // Show "Close" text when flyout is open.
+            &[aria-expanded="true"] {
+                .m-global-search_trigger-label:before {
+                    content: 'Close';
+                }
+            }
+        }
+
+        // Only show search suggestions at tablet size.
+        &_content-suggestions {
+            display: block;
+        }
+    } );
+
+    // Desktop and above
+    .respond-to-min( @bp-med-min, {
+        // Always show on desktop, even without JS.
+        display: block;
+        // Center on the call to action (CTA) divider to right of search.
+        padding-top: 6px;
+        padding-bottom: 6px;
+        // Match CTA offset from divider.
+        padding-right: @margin_half__em;
+
+        overflow: hidden;
+
+        &_trigger {
+            // Match height of input with button.
+            padding: 7px 0;
+
+            &[aria-expanded="true"] {
+                .u-invisible();
+            }
+        }
+
+        .js & {
+            position: relative;
+
+            &_trigger {
+                float: right;
+            }
+
+            &_content {
+                right: @margin_half__em;
+                width: auto;
+            }
+        }
+    } );
+
+    // TODO: Move these styles to cf-enhancements/cf-forms.
+    //       Look into removing grid styles altogether.
+    // Mobile size.
+    .respond-to-min( 480px, {
+        &_content-form {
+            // Attach button to input.
+            .o-form__input-w-btn_input-container {
+                width: 70%;
+            }
+            .o-form__input-w-btn_btn-container {
+                width: 30%;
+                border-left: 0;
+
+                button {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
+        }
+    } );
+
+    // Tab trigger is used to capture press of the tab key so that
+    // global search can be collapsed when it hits this element.
+    &_tab-trigger {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    // Hide on print.
+    .respond-to-print( {
+        & {
+            // Important needed to override JS display settings.
+            display: none !important;
+        }
+    } );
+}
+
+/* topdoc
+    name: EOF
+    eof: true
+*/

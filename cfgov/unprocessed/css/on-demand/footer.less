@@ -1,0 +1,53 @@
+/* ==========================================================================
+   cfgov-refresh
+   Master Less file for the nonresponsive on-demand footer
+   ========================================================================== */
+
+
+/* Base styles
+   @import combined CF components Less file and make any overrides.
+   ========================================================================== */
+
+// Import required CF components.
+// Combined CF components.
+@import (less) 'cf-core.less';
+@import (less) 'cf-icons.less';
+@import (less) 'cf-buttons.less';
+@import (less) 'cf-forms.less';
+
+.o-footer {
+    @import (less) 'cf-buttons.less';
+    @import (less) 'cf-layout.less';
+}
+@import (less) 'cf-typography.less';
+
+// // Icon font path
+@cf-icon-path: '/static/fonts';
+
+// Webfont variables
+// This is the path for self-hosted fonts.
+@cf-fonts-path: '/static/fonts';
+// Whether or not to override the local path and retrieve fonts from fonts.net.
+@use-font-cdn: true;
+
+// Enhancements that are on a migration path to being added to CF.
+// CF Core
+@import (less) "../enhancements/vars.less";
+@import (less) "../enhancements/utilities.less";
+@import (less) "../enhancements/base.less";
+
+/* Base patterns
+   ========================================================================== */
+@import (less) "../misc.less";
+
+
+/* Molecule pieces
+   ========================================================================== */
+
+@import (less) "../molecules/social-media.less";
+
+
+/* Organism pieces
+   ========================================================================== */
+
+@import (less) "../organisms/footer.less";

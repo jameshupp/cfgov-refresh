@@ -1,0 +1,166 @@
+/* ==========================================================================
+   cfgov-refresh
+   Master Less file
+   ========================================================================== */
+
+
+/* Base styles
+   ========================================================================== */
+
+// Import required CF components.
+@import (less) 'cf-core.less';
+@import (less) 'cf-icons.less';
+@import (less) 'cf-buttons.less';
+@import (less) 'cf-forms.less';
+@import (less) 'cf-grid.less';
+@import (less) 'cf-layout.less';
+@import (less) 'cf-typography.less';
+@import (less) 'cf-notifications.less';
+@import (less) 'cf-pagination.less';
+@import (less) 'cf-expandables.less';
+@import (less) 'cf-tables.less';
+
+// Icon font path
+@cf-icon-path: '/static/fonts';
+
+// Webfont variables
+// This is the path for self-hosted fonts.
+@cf-fonts-path: '/static/fonts';
+// Whether or not to override the local path and retrieve fonts from fonts.net.
+@use-font-cdn: false;
+
+// Enhancements that are on a migration path to being added to CF.
+// CF Core
+@import (less) "enhancements/vars.less";
+@import (less) "enhancements/utilities.less";
+@import (less) "enhancements/base.less";
+
+// CF Typography
+@import (less) "enhancements/typography.less";
+
+// CF Layout
+@import (less) "enhancements/layout.less";
+
+// CF Forms
+@import (less) "enhancements/forms.less";
+
+// CF Tables
+@import (less) "enhancements/tables.less";
+
+// CF Notifications
+@import (less) "enhancements/notifications.less";
+
+// CF ???
+@import (less) "enhancements/print.less";
+
+
+
+/* Base patterns
+   ========================================================================== */
+
+@import (less) "forms.less";
+@import (less) "images.less";
+@import (less) "media.less";
+@import (less) "meta.less";
+@import (less) "misc.less";
+@import (less) "video-player.less";
+
+
+/* Amalgamated patterns
+   ========================================================================== */
+
+@import (less) "post.less";
+@import (less) "calendar-icon.less";
+@import (less) "modification-date.less";
+
+
+/* Atom pieces
+   ========================================================================== */
+
+@import (less) "atoms/rule-break.less";
+@import (less) "atoms/overlay.less";
+@import (less) "atoms/partially-styled-link.less";
+@import (less) "atoms/tag.less";
+@import (less) "atoms/tagline.less";
+
+
+/* Molecule pieces
+   ========================================================================== */
+
+@import (less) "molecules/autocomplete.less";
+@import (less) "molecules/big-checkbox.less";
+@import (less) "molecules/call-to-action.less";
+@import (less) "molecules/card.less";
+@import (less) "molecules/featured-menu-content.less";
+@import (less) "molecules/form-field-with-button.less";
+@import (less) "molecules/full-width-media.less";
+@import (less) "molecules/full-width-text.less";
+@import (less) "molecules/global-banner.less";
+@import (less) "molecules/global-eyebrow.less";
+@import (less) "molecules/global-header-cta.less";
+@import (less) "molecules/global-search.less";
+@import (less) "molecules/home-hero.less";
+@import (less) "molecules/info-unit.less";
+@import (less) "molecules/inset.less";
+@import (less) "molecules/multiselect.less";
+@import (less) "molecules/nav-link.less";
+@import (less) "molecules/related-metadata.less";
+@import (less) "molecules/related-posts.less";
+@import (less) "molecules/social-media.less";
+
+
+/* Organism pieces
+   ========================================================================== */
+@import (less) "organisms/bureau-structure.less";
+@import (less) "organisms/chart.less";
+@import (less) "organisms/email-popup.less";
+@import (less) "organisms/email-signup.less";
+@import (less) "organisms/footer.less";
+@import (less) "organisms/form.less";
+@import (less) "organisms/form-input-group.less";
+@import (less) "organisms/full-width-text-group.less";
+@import (less) "organisms/header.less";
+@import (less) "organisms/info-unit-group.less";
+@import (less) "organisms/item-introduction.less";
+@import (less) "organisms/mega-menu.less";
+@import (less) "organisms/mortgage-performance-trends.less";
+@import (less) "organisms/post-preview.less";
+@import (less) "organisms/prefooter.less";
+@import (less) "organisms/read-more.less";
+@import (less) "organisms/reg-comment.less";
+@import (less) "organisms/resource-list.less";
+@import (less) "organisms/secondary-navigation.less";
+@import (less) "organisms/sidebar-breakout.less";
+@import (less) "organisms/sidebar-contact-info.less";
+@import (less) "organisms/sidebar-content.less";
+
+
+/* Template pieces
+   ========================================================================== */
+
+@import (less) "skip-nav.less";
+@import (less) "breadcrumbs.less";
+
+
+/* Page-specific styles
+   ========================================================================== */
+
+@import (less) "pages/ask.less";
+@import (less) "pages/careers.less";
+@import (less) "pages/event.less";
+@import (less) "pages/external-site.less";
+@import (less) "pages/error.less";
+@import (less) "pages/home.less";
+@import (less) "pages/press-resources.less";
+
+
+/* Print styles
+   ========================================================================== */
+
+@import (less) "print.less";
+
+
+/* Wagtail mitigation
+   ========================================================================== */
+
+@import (less) "rich-text.less";

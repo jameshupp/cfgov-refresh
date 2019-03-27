@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 As a work of the United States Government, this package (excluding any
+=======
+As a work of the United States government, this package (excluding any
+>>>>>>> cfpb/master
 exceptions listed below) is in the public domain within the United States.
 Additionally, we waive copyright and related rights in the work worldwide
 through the [CC0 1.0 Universal public domain dedication][CC0].
@@ -26,7 +30,7 @@ the public domain by waiving all of his or her rights to the work worldwide
 under copyright law, including all related and neighboring rights, to the
 extent allowed by law.
 
-You can copy, modify, distribute and perform the work, even for commercial 
+You can copy, modify, distribute and perform the work, even for commercial
 purposes, all without asking permission. See Other Information below.
 
 ### Other Information
@@ -42,13 +46,18 @@ When using or citing the work, you should not imply endorsement by the
 author or the affirmer.
 
 [policy]: https://github.com/cfpb/source-code-policy/
+<<<<<<< HEAD
 [CC0]: http://creativecommons.org/publicdomain/zero/1.0/legalcode
+=======
+[CC0]: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+>>>>>>> cfpb/master
 
 
 ## Exceptions
 
-- [The HTML5 Shiv](https://github.com/aFarkas/html5shiv) by Alexander Farkas,
+- [HTML5 Shiv](https://github.com/aFarkas/html5shiv) by Alexander Farkas,
   et al., is licensed under MIT/GPL2.
+<<<<<<< HEAD
 - [Rainbow](https://github.com/ccampbell/rainbow) by Craig Campbell is licensed
   under Apache 2.0.
 - The Brackets Theme by Garth Braithwaite is licensed under Apache 2.0.
@@ -70,3 +79,13 @@ author or the affirmer.
 - [String Scoring Algorithm](https://github.com/joshaven/string_score) by
   Joshaven Potter is licensed under the MIT License.
   
+=======
+- [jQuery](https://jquery.com) by The jQuery Foundation is licensed under the
+  MIT License.
+- [Modernizr](https://github.com/Modernizr/Modernizr) by Faruk Ateş, et al.,
+  is licensed under MIT License.
+- [Normalize](https://necolas.github.io/normalize.css/) by Nicolas Gallagher,
+  co-created with Jonathan Neal, is licensed under the MIT License.
+- Build depedencies packaged in `npm-packages-offline-cache` are individually licensed.
+  Once installed, specific licenses can be viewed in the `node_modules` folder.
+>>>>>>> cfpb/master

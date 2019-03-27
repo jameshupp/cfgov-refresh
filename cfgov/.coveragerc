@@ -1,0 +1,18 @@
+[run]
+omit = 
+    *wsgi.py
+    */admin/*
+    */migrations/*
+    */site-packages*
+    */python2.7/*
+    *setup.py
+    *settings/*
+    */ask_cfpb/scripts/*
+    */ask_cfpb/search_indexes*
+data_file = ../.coverage
+
+[report]
+exclude_lines = 
+    pragma: no cover
+    if __name__ == .__main__.:
+    if .__main__. == __name__:

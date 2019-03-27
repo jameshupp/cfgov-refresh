@@ -1,0 +1,25 @@
+{# ==========================================================================
+
+  global_header_cta.render()
+
+   ==========================================================================
+
+   Description:
+
+   Creates markup for Global Header Call to Action (CTA) molecule.
+
+   is_horizontal: Whether the molecule appears horizontally or vertically.
+                  defaults to false.
+
+   ========================================================================== #}
+
+{% macro render( is_horizontal=false ) %}
+    {# TODO: Padding should be on link, not CTA itself #}
+    <div class="m-global-header-cta
+                m-global-header-cta__{{ 'horizontal' if is_horizontal else 'list' }}">
+        <a href="/complaint/">
+            {{ svg_icon('complaint') }}
+            Submit a Complaint
+        </a>
+    </div>
+{% endmacro %}

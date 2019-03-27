@@ -1,0 +1,135 @@
+{#
+    This is the base template for the English-language consumerfinance.gov.
+#}
+{% extends 'base-common.html' %}
+
+{% block preload %}
+<link rel="preload" href="{{ static('css/main.css') }}" as="style">
+<link rel="preload"
+      href="{{ static('fonts/2cd55546-ec00-4af9-aeca-4a3cd186da53.woff2') }}"
+      as="font"
+      type="font/woff2" crossorigin>
+<link rel="preload"
+      href="{{ static('fonts/cf-icons.woff') }}"
+      as="font"
+      type="font/woff2" crossorigin>
+<link rel="preload"
+      href="{{ static('fonts/627fbb5a-3bae-4cd9-b617-2f923e29d55e.woff2') }}"
+      as="font"
+      type="font/woff2" crossorigin>
+<link rel="preload" href="{{ static('js/routes/common.js') }}" as="script">
+
+<link rel="dns-prefetch" href="//consumerfinance.gov/">
+<link rel="dns-prefetch" href="//fast.fonts.net/">
+<link rel="dns-prefetch" href="//google-analytics.com/">
+<link rel="dns-prefetch" href="//googletagmanager.com/">
+<link rel="dns-prefetch" href="//js-agent.newrelic.com/">
+<link rel="dns-prefetch" href="//s.ytimg.com/">
+<link rel="dns-prefetch" href="//search.usa.gov/">
+<link rel="dns-prefetch" href="//stats.g.doubleclick.net/">
+{% endblock preload %}
+
+{% block body %}
+
+{# Overlay for the page. Used for the mobile mega menu. #}
+<div class="a-overlay u-hidden"></div>
+
+<div class="skip-nav">
+    <a href="#main" class="skip-nav_link">Skip to main content</a>
+</div>
+
+{% block header %}
+    {% import 'organisms/header.html' as o_header with context %}
+    {{ o_header.render( show_banner=true ) }}
+{% endblock header %}
+
+{# WAGTAILUSERBAR IN-PAGE VIEW CONTROLS #}
+{{ wagtailuserbar() }}
+
+{% block banner_top %}
+{% endblock %}
+
+{# PRIMARY CONTENT #}
+{% block content %}
+    {# This will be replaced in templates that extend this template
+    and override "content". #}
+{% endblock content %}
+{# /PRIMARY CONTENT #}
+
+{% block banner_bottom %}
+{% endblock %}
+
+{% block footer %}
+    {% import 'organisms/footer.html' as o_footer with context %}
+    {{ o_footer.render() }}
+{% endblock footer %}
+
+{% endblock body %}
+
+{#
+    ============
+    BODY SCRIPTS
+    ============
+    The number of scripts here must be kept to a minimum.
+#}
+
+{% block javascript scoped %}
+
+{#
+  Modernizr adds a no-js class the HTML element if ECMAScript 5 features aren't
+  available. Check for that CSS class here and act accordingly.
+#}
+<script>
+  if ( document.body.parentElement.className.indexOf( 'no-js' ) === -1 ) {
+    !function(){
+      {# Include site-wide JavaScript. #}
+      var s = [ '{{ static('js/routes/common.js') }}' ];
+      {#
+        Check and include template-level JavaScript.
+        Template-level JavaScript applies to all pages under the URL scheme
+        www.consumerfinance.gov/[app-url]/
+        and JavaScript appears in unprocessed/js/routes/[app-url]/single.js.
+      #}
+      {% macro template_js() %}
+         {% include 'js/routes/' + request.path.split('/')[1] + '/single.js' ignore missing %}
+      {% endmacro %}
+      {% set js_source = template_js() | trim %}
+      {% if js_source | length > 0 %}
+        s.push( '{{ static('js/routes/' + request.path.split('/')[1] + '/single.js') }}' );
+      {% endif %}
+      {#
+        Check and include component-level JavaScript.
+        Component-level JavaScript adds scripts appearing in
+        unprocessed/js/routes/on-demand/[component].js
+        to the page, based on what components were added in Wagtail.
+      #}
+      {% if page and page.media %}
+         {% for js in page.media %}
+           s.push( '{{ static('js/routes/on-demand/' + js) }}' );
+         {% endfor %}
+      {% endif %}
+      {#
+        Check and include page-level JavaScript.
+        Page-level JavaScript applies to a single pages under the URL scheme
+        www.consumerfinance.gov/[app-url]/somepage
+        and JavaScript appears in unprocessed/js/routes/[app-url]/index.js.
+      #}
+      {% macro page_js() %}
+         {% include 'js/routes/' + request.path[1:] + 'index.js' ignore missing %}
+      {% endmacro %}
+      {% set js_source = page_js() | trim %}
+      {% if js_source | length > 0 %}
+        s.push( '{{ static('js/routes/' + request.path[1:] + 'index.js') }}' );
+      {% endif %}
+      {% if flag_enabled('TURBOLINKS', request) %}
+        s.push( '{{ static('js/routes/on-demand/turbolinks.js') }}' );
+      {% endif %}
+      {# Pass scripts to JavaScript loader. #}
+      jsl(s);
+    }();
+  }
+</script>
+
+{% include '_includes/snippets/search_gov.html' %}
+
+{% endblock javascript %}

@@ -3,15 +3,18 @@
 *.com
 *.class
 *.dll
-*.exe
 *.o
-*.so
 _site/
+<<<<<<< HEAD
+=======
+_build/
+cfgov/static_built/*
+>>>>>>> cfpb/master
 
 # Packages #
 ############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
+# It's better to unpack these files and commit the raw source
+# git has its own built-in compression methods.
 *.7z
 *.dmg
 *.gz
@@ -21,11 +24,19 @@ _site/
 *.tar
 *.zip
 
+# Desired .zip files #
+######################
+
+!cfgov/agreements/tests/empty-folder-agreements.zip
+!cfgov/agreements/tests/UTF_agreements.zip
+
+
 # Logs and databases #
 ######################
-*.log
+logs/*
 *.sql
 *.sqlite
+*.sqlite3
 
 # OS generated files #
 ######################
@@ -34,18 +45,42 @@ _site/
 ._*
 .Spotlight-V100
 .Trashes
-Icon?
+Icon
+
 ehthumbs.db
 Thumbs.db
 
-# Grunt.js #
-############
-node_modules/
-.grunt/
+# Environment vars #
+####################
+.env
 
-# Bower packages #
+# Node packages #
+#################
+node_modules/
+cfgov/unprocessed/apps/*/node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Vim swap files #
 ##################
+*.swp
+
+# Python #
+##########
+*.pyc
+__pycache__/
+*.eggs/
+*.egg/
+
+# pyenv #
+#########
+.python-version
+
+# Front-End #
+#############
 bower_components/
+<<<<<<< HEAD
 /vendor
 
 # Sheer stuff #
@@ -65,3 +100,52 @@ docs/*/pdfreactor-fonts.html
 # Testing stuff #
 ##################
 _tests/browser_testing/features/environment.cfg
+=======
+vendor/
+
+# Floobits #
+############
+.floo*
+
+# Documentation #
+#################
+# MkDocs compiles documentation to this directory.
+# This should not be committed because it gets built by Travis.
+site/
+
+# Django #
+##########
+*.egg-info
+.installed.cfg
+/static/
+cfgov/static_built/*
+cfgov/f/
+/images/
+/documents/
+original_images/
+collectstatic/*
+develop-apps/*
+static.in/*/
+
+# Unit test / coverage reports #
+################################
+test/unit_test_coverage/
+test/perf_test_results/
+test/screenshot.png
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+.snyk
+protractorFailuresReport/
+
+# IDE Specifc #
+###############
+*.idea
+
+# Auto-generated service workers #
+##################################
+cfgov/regulations3k/jinja2/regulations3k/regulations3k-service-worker.js
+>>>>>>> cfpb/master

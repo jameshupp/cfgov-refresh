@@ -1,0 +1,75 @@
+/* ==========================================================================
+   cfgov-refresh
+   Master Less file for the nonresponsive on-demand header
+   ========================================================================== */
+
+
+/* Base styles
+   @import combined CF components Less file and make any overrides.
+   ========================================================================== */
+
+// Import required CF components.
+// Combined CF components.
+@import (less) 'cf-core.less';
+@import (less) 'cf-icons.less';
+@import (less) 'cf-buttons.less';
+@import (less) 'cf-forms.less';
+
+.o-header {
+    @import (less) 'cf-buttons.less';
+    @import (less) 'cf-layout.less';
+    @import (less) 'cf-typography.less';
+}
+
+// Icon font path
+@cf-icon-path: '/static/fonts';
+
+// Webfont variables
+// This is the path for self-hosted fonts.
+@cf-fonts-path: '/static/fonts';
+// Whether or not to override the local path and retrieve fonts from fonts.net.
+@use-font-cdn: true;
+
+// Enhancements that are on a migration path to being added to CF.
+// CF Core
+@import (less) "../enhancements/vars.less";
+@import (less) "../enhancements/utilities.less";
+@import (less) "../enhancements/base.less";
+
+.o-header {
+    // CF Forms
+    @import (less) "../enhancements/forms.less";
+}
+
+/* Base patterns
+   ========================================================================== */
+@import (less) "../misc.less";
+
+/* Atom pieces
+   ========================================================================== */
+
+@import (less) "../atoms/rule-break.less";
+@import (less) "../atoms/overlay.less";
+
+/* Molecule pieces
+   ========================================================================== */
+
+@import (less) "../molecules/featured-menu-content.less";
+@import (less) "../molecules/global-banner.less";
+@import (less) "../molecules/global-eyebrow.less";
+@import (less) "../molecules/global-header-cta.less";
+@import (less) "../molecules/global-search.less";
+
+/* Organism pieces
+   ========================================================================== */
+
+@import (less) "../organisms/header.less";
+
+.o-header {
+  // menu needs to be scoped or the cascade pushes the other scoped styles up
+  @import (less) "../organisms/mega-menu.less";
+}
+
+/* Template pieces
+   ========================================================================== */
+@import (less) "../skip-nav.less";

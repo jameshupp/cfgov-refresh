@@ -1,0 +1,177 @@
+{% extends 'layout-2-1-bleedbar.html' %}
+{% import 'tags.html' as tags with context %}
+{% import 'form_block.html' as form_block with context %}
+{% import 'macros/util/format/datetime.html' as dt %}
+{% import 'ask/ask-search-bar.html' as ask_search_bar with context %}
+{% import 'templates/streamfield-sidefoot.html' as streamfield_sidefoot with context %}
+
+{% block title %}
+    {{ page.question | striptags }}
+{% endblock %}
+
+{% block desc %}
+    {{ description | striptags | safe}}
+{% endblock %}
+{%- block og_desc -%}
+  {{- page.search_description or page.seo_title or page.short_answer|striptags -}}
+{%- endblock -%}
+
+{% block banner_top %}
+    {% if about_us %}
+        {% set value = {
+            'border_bottom': True,
+            'additional_classes': ' ask-cfpb-banner',
+            'content': about_us.text
+        } %}
+        {% include 'templates/content-banner.html' with context %}
+    {% endif %}
+{% endblock %}
+
+{% block content_modifiers -%}
+    {{ super() }} ask-cfpb-page ask-cfpb-page__answer
+{%- endblock %}
+
+
+{% block content_main_modifiers -%}
+    {{ super() }} content__flush-bottom
+{%- endblock %}
+
+{% block content_main %}
+    <div class="block
+                block__flush-top
+                block__sub">
+        {% if last_edited %}
+        <time datetime='{{ last_edited }}' class="answer-edited-date">updated {{ dt.format_date(last_edited) }}</time>
+        {% endif %}
+
+    {% if flag_enabled('ASK_CFPB_H1', page=page) %}
+        <h1 class="h2">{{ page.question | striptags }}</h1>
+    {% else %}
+        <h2>{{ page.question | striptags }}</h2>
+    {% endif %}
+    </div>
+
+    <div class="block
+                block__flush-top">
+        {% if page.short_answer %}
+            <h3 class="answer-snippet">
+                <strong>
+                    Answer:
+                </strong>
+                {{ page.short_answer | richtext | safe }}
+            </h3>
+        {% endif %}
+        <div data-qa-hook="expandable"
+             data-read-more="true"
+             class="o-expandable
+                    o-expandable__read-more">
+            <div class="o-expandable_content" id="answer-content">
+                <div class="answer-text">
+                    {{ page.answer | richtext | safe }}
+                </div>
+                {% if audiences %}
+                <div class="u-mt15">
+                    {{ tags.render( {'links': audiences}, is_wagtail=True) }}
+                </div>
+                {% endif %}
+
+                {# This brings in the feedback module #}
+                {% for block in page.user_feedback %}
+                    {{- form_block.render(block, 'user_feedback', loop.index0) -}}
+                {% endfor %}
+                {% if disclaimer %}
+                <div class="block block__flush-bottom ask-disclaimer">
+                    {{ disclaimer.text | safe }}
+                </div>
+                {% endif %}
+            </div>
+            <button class="o-expandable_header o-expandable_target"
+                    title="Expand content">
+                <span class="o-expandable_link">
+                    <span class="o-expandable_cue o-expandable_cue-open">
+                        Read full answer
+                        {{ svg_icon('plus-round') }}
+                   </span>
+                    <span class="o-expandable_cue o-expandable_cue-close">
+                        Hide full answer
+                        {{ svg_icon('minus-round') }}
+                   </span>
+                </span>
+            </button>
+        </div>
+
+    </div>
+    {{ ask_search_bar.render( 'left' ) }}
+
+    {{ email_popup(request) }}
+{% endblock %}
+
+{% block content_sidebar_modifiers -%}
+    o-sidebar-content
+{%- endblock %}
+
+{% block content_sidebar scoped  %}
+
+    {% if page.related_resource %}
+        <div class="block block__flush-top">
+            <h3 >
+                Explore related resources
+            </h3>
+            {{ page.related_resource.text | safe }}
+        </div>
+    {% endif %}
+    {% if page.sidebar_panels %}
+            {{ streamfield_sidefoot.render(page.sidebar) }}
+    {% endif %}
+    {% if category and subcategories %}
+        <div class="block {% if not page.related_resource %}block__flush-top{% endif %}">
+            <div class="m-related-links">
+                <header class="m-slug-header">
+                    <h2 class="a-heading">
+                        Related {{category.name}} subjects
+                    </h2>
+                </header>
+                <ul class="m-list m-list__unstyled m-list__links">
+                    {% for subcat in subcategories %}
+                        <li class="m-list_item">
+                            <a href="{{slugurl('category-' + subcat.parent.slug)}}{{subcat.slug}}/" class="m-list_link">
+                                {{ subcat.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    <li class="m-list_item">
+                        <a class="a-btn category-button" href="{{slugurl('category-' + category.slug)}}">
+                            See all {{ category.name | lower }} questions
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if related_questions %}
+        <div class="block">
+            <div class="m-related-links">
+                <header class="m-slug-header">
+                    <h2 class="a-heading">
+                        Related questions
+                    </h2>
+                </header>
+                <ul class="m-list m-list__unstyled m-list__links">
+                    {% for question in related_questions %}
+                    <li class="m-list_item">
+                        <a href="{{ question.url }}" class="m-list_link">
+                            {{ question.question | safe }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+    <div class="analytics-data"
+         data-answer-id="{{ answer_id }}"
+         data-category-slug="{{ category.slug }}"
+         data-category-name="{{ category.name }}">
+    </div>
+{% endblock %}
